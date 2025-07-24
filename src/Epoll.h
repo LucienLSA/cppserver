@@ -2,6 +2,7 @@
 #include <sys/epoll.h>
 #include <vector>
 
+class Channel;
 class Epoll
 {
 private:
@@ -12,7 +13,12 @@ public:
     ~Epoll();
     // 添加文件描述符到epoll监控
     void addFd(int fd, uint32_t op);
+    //
+    void updateChannel(Channel*);
+
     // 事件轮询 poll() 等待并返回就绪事件
     // vector存储就绪事件
-    std::vector<epoll_event> poll(int timeout = -1);
+    // std::vector<epoll_event> poll(int timeout = -1);
+    std::vector<Channel*> poll(int timeout = -1);
+    
 };
